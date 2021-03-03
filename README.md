@@ -1,5 +1,5 @@
 # Word Travel Game With Unity
-The aim of this game is to find the words and move on to the next level.
+The goal of this game is to find the words and move on to the next level.
 
 # User Login
 ![alt text](https://github.com/hrnbykbs/AllPictures/blob/main/WordTravelGameWithUnity/userLogin.png)
