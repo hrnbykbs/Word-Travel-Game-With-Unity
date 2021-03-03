@@ -1,0 +1,207 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using System;
+
+public class Butonlar : MonoBehaviour
+{
+    public Text kelimetxt;
+    public Text puantxt, puanyazisi;
+    int puan = 0;
+    public Text[] butontxt = new Text[5];
+    public GameObject panel;
+    public Button[] butons = new Button[5];
+    List<Button> butonlar = new List<Button>();
+
+    void Start()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            butonlar.Add(butons[i]);
+        }
+        dosyadansesliharfOkuveYaz();
+        dosyadansessizharfOkuveYaz();
+    }
+    public void Update()
+    {
+
+    }
+    public void dosyadansesliharfOkuveYaz()
+    {
+        string harflerdosyasi = @"C:\Users\HARUN\UnityProjects\YazLab2Proje2\sesliharfler.txt";
+        FileStream fs = new FileStream(harflerdosyasi, FileMode.Open, FileAccess.Read);
+        StreamReader sr = new StreamReader(fs);
+        string[] harfler = new string[8];
+        System.Random rastgele = new System.Random();
+        int rastsayi = rastgele.Next(0, 9);
+        int i = 0;
+        while (sr.EndOfStream != true)
+        {
+            harfler[i] = sr.ReadLine();
+            i += 1;
+        }
+        for (int j = 3; j < 5; j++)
+        {
+            butontxt[j].text = harfler[rastsayi];
+            rastsayi = rastgele.Next(0, 9);
+        }
+        sr.Close();
+        fs.Close();
+    }
+    public void dosyadansessizharfOkuveYaz()
+    {
+        string harflerdosyasi = @"C:\Users\HARUN\UnityProjects\YazLab2Proje2\sessizharfler.txt";
+        FileStream fs = new FileStream(harflerdosyasi, FileMode.Open, FileAccess.Read);
+        StreamReader sr = new StreamReader(fs);
+        string[] harfler = new string[21];
+        System.Random rastgele = new System.Random();
+        int rastsayi = rastgele.Next(0, 22);
+        int i = 0;
+        while (sr.EndOfStream != true)
+        {
+            harfler[i] = sr.ReadLine();
+            i += 1;
+        }
+        for (int j = 0; j < 3; j++)
+        {
+            butontxt[j].text = harfler[rastsayi];
+            rastsayi = rastgele.Next(0, 22);
+        }
+
+        sr.Close();
+        fs.Close();
+    }
+    public void dosyadankelimeOku()
+    {
+        string kelimelerdosyasi = @"C:\Users\HARUN\UnityProjects\YazLab2Proje2\kelimeler.txt";
+        FileStream fs = new FileStream(kelimelerdosyasi, FileMode.Open, FileAccess.Read);
+        StreamReader sr = new StreamReader(fs);
+        string[] yazi = new string[10000];
+        for (int k = 0; k < yazi.Length; k++)
+        {
+            yazi[k] += sr.ReadLine();
+            if (yazi[k] == kelimetxt.text)
+            {
+                puan += 100;
+                //panel.SetActive(true);
+                puantxt.text = puan.ToString();
+                kelimetxt.text = "";
+                break;
+            }
+            else
+            {
+                puan -= 100;
+                puantxt.text = puan.ToString();
+                kelimetxt.text = "";
+                break;
+            }
+
+        }
+        
+        sr.Close();
+        fs.Close();
+    }
+    public void tikla1()
+    {
+            kelimetxt.text += butontxt[0].text;
+            if (kelimetxt.text.Length==3)
+            {
+                dosyadankelimeOku();
+                dosyadansessizharfOkuveYaz();
+        }
+    }
+    public void tikla2()
+    {
+            kelimetxt.text += butontxt[1].text;
+            if (kelimetxt.text.Length == 3)
+            {
+                dosyadankelimeOku();
+                dosyadansessizharfOkuveYaz();
+        }
+    }
+    public void tikla3()
+    {
+            kelimetxt.text += butontxt[2].text;
+            if (kelimetxt.text.Length == 3)
+            {
+                dosyadankelimeOku();
+                dosyadansessizharfOkuveYaz();
+        }
+    }
+    public void tikla4()
+    {
+            kelimetxt.text += butontxt[3].text;
+            if (kelimetxt.text.Length == 3)
+            {
+                dosyadankelimeOku();
+                dosyadansesliharfOkuveYaz();
+        }
+    }
+    public void tikla5()
+    {
+            kelimetxt.text += butontxt[4].text;
+            if (kelimetxt.text.Length == 3)
+            {
+                dosyadankelimeOku();
+                dosyadansesliharfOkuveYaz();
+        }
+    }
+}
+
+/* 
+         string filename = "test.txt";
+        string path = Application.dataPath;
+        string line = "";
+        string delim = ":";
+        if (File.Exists(Path.Combine(path, filename)))
+        {
+            StreamReader sr = null;
+            try
+            {
+                sr = new StreamReader(Path.Combine(path, filename));
+                while ((line = sr.ReadLine()) != null)
+                {
+                    // if (line.Contains("id:"))
+                    // {
+                    string[] words = line.Split(delim.ToCharArray());
+                    kelimetxt.text = words[0];
+                    Debug.Log(words[0]);
+                    //int id = int.Parse(words[1]);
+                    //Debug.Log(id);
+                    // }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+        }   
+         
+         */
+
+/*
+public void yesil_ol()
+{
+    if (tiklandimi == true)
+    {
+        renk.color = Color.green;
+        if (harf_verildi == false)
+        {
+            harf_verildi = true;
+        }
+    }
+}
+*/
+
+/*if (Input.GetMouseButtonDown(0))
+    {
+        tiklandimi = true;
+    }
+    if (Input.GetMouseButtonUp(0))
+    {
+        tiklandimi = false;
+
+        puantxt.text = puan.ToString();
+    }*/
